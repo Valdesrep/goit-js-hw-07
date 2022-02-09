@@ -22,9 +22,13 @@ function createGalleryMarkup(images) {
 const gallery = document.querySelector(".gallery");
 
 const galleryItemMarkup = createGalleryMarkup(galleryItems);
-// gallery.insertAdjacentElement("beforeend", galleryItemMarkup);
 gallery.innerHTML = galleryItemMarkup;
 
 gallery.addEventListener("click", (event) => {
-    preventDefault()
+  event.preventDefault();
+  const bigImageUrl = event.target.dataset.source
+  if(event.target.nodeName !=="IMG"){
+    return
+  }
+
 });
