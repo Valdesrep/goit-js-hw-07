@@ -26,9 +26,32 @@ gallery.innerHTML = galleryItemMarkup;
 
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
-  const bigImageUrl = event.target.dataset.source
-  if(event.target.nodeName !=="IMG"){
-    return
+  const bigImageUrl = event.target.dataset.source;
+  if (event.target.nodeName !== "IMG") {
+    return;
   }
-
+  createInstanceImg(bigImageUrl);
 });
+
+let instance = {};
+function createInstanceImg(bigImageUrl) {
+  instance = basicLightbox.create(
+    ` <img src="${bigImageUrl}">`,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", modalClose);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", modalClose);
+      },
+    }
+  );
+
+  instance.show();
+}
+
+function modalClose(event) {
+  if (event.code === "Escape") {
+    return instance.close();
+  }
+}
