@@ -4,19 +4,23 @@ import { galleryItems } from "./gallery-items.js";
 console.log(galleryItems);
 
 function createGalleryMarkup(images) {
-  return images
-    .map(({ preview, description, original }) => {
-      return `<a class="gallery__item" href="${original}">
-    <img
-            class="gallery__image"
-            src="${preview}"
-            alt="${description}"/>
-        </a>`;
+    return images.map(({preview, original, description }) => {
+        return `
+        <a class="gallery__item" href="${original}">
+            <img class="gallery__image" src="${preview}" alt="${description}" />
+        </a>        
+        `;
     })
-    .join("");
+        .join(' '); 
 }
 
 const gallery = document.querySelector(".gallery");
 
 const galleryItemMarkup = createGalleryMarkup(galleryItems);
 gallery.innerHTML = galleryItemMarkup;
+
+const newLightbox = new SimpleLightbox('.gallery a', {    
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250
+});
